@@ -18,7 +18,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.modules.permissions.PermissionsModule;
 
-import java.util.Locale;
 
 public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
   private final ReactApplicationContext reactContext;
@@ -93,7 +92,7 @@ public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
         // NOOP
       }
     };
-    mPermissionsModule.requestPermission(permission, resolve, reject);
+    mPermissionsModule.requestPermission(permission, new PromiseImpl(resolve, reject));
   }
 
 
@@ -115,7 +114,7 @@ public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
   }
 
   private String permissionForString(String permission) {
-    switch (RNType.valueOf(permission.toUpperCase(Locale.ENGLISH))) {
+    switch (RNType.valueOf(permission.toUpperCase())) {
       case LOCATION:
         return Manifest.permission.ACCESS_FINE_LOCATION;
       case CAMERA:
